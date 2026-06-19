@@ -99,12 +99,12 @@ The table below shows current availability.
 | Listing | Method | Status |
 |---|---|---|
 | 3.1 | Prerequisite Preprocessing Script | Available |
-| 4.1 | Representational Discourse Analysis - Processing | Pending |
-| 4.2 | Representational Discourse Analysis - Analysis | Pending |
-| 4.3 | Rhetorical Strategy Analysis - Processing | Pending |
-| 4.4 | Rhetorical Strategy Analysis - Analysis | Pending |
-| 4.5 | Inclusive Language Audit - Processing | Pending |
-| 4.6 | Inclusive Language Audit - Analysis | Pending |
+| 4.1 | Representational Discourse Analysis - Processing | Available |
+| 4.2 | Representational Discourse Analysis - Analysis | Available |
+| 4.3 | Rhetorical Strategy Analysis - Processing | Available |
+| 4.4 | Rhetorical Strategy Analysis - Analysis | Available |
+| 4.5 | Inclusive Language Audit - Processing | Available |
+| 4.6 | Inclusive Language Audit - Analysis | Available |
 | 5.1 | Assessing Public Attitudes - Processing | Pending |
 | 5.2 | Assessing Public Attitudes - Analysis | Pending |
 | 5.3 | Documenting Language Attitudes - Processing | Pending |
