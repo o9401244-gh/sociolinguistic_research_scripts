@@ -21,6 +21,7 @@ plt.tight_layout()
 plt.show()
 
 ##### 2. Critical questions status distribution
+cq_by_scheme = None
 if 'Critical_Questions_Status' in df.columns:
     print("\nCritical Questions Status Distribution:")
     cq_counts = (df['Critical_Questions_Status']
@@ -31,7 +32,6 @@ if 'Critical_Questions_Status' in df.columns:
     plt.ylabel("")
     plt.tight_layout()
     plt.show()
-    # Critical questions status by argumentation scheme
     if 'Argumentation_Scheme' in df.columns:
         cq_by_scheme = pd.crosstab(
             df['Argumentation_Scheme'],
@@ -39,6 +39,12 @@ if 'Critical_Questions_Status' in df.columns:
         print("\nCritical Questions Status by "
               "Argumentation Scheme:")
         print(cq_by_scheme)
+    else:
+        print("Warning: Argumentation_Scheme column not "
+              "found. Skipping crosstab.")
+else:
+    print("Warning: Critical_Questions_Status column not "
+          "found. Skipping step 2.")
 
 ##### 3. Frequency distribution of rhetorical devices
 if 'Rhetorical_Device' in df.columns:
@@ -52,8 +58,12 @@ if 'Rhetorical_Device' in df.columns:
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     plt.show()
+else:
+    print("Warning: Rhetorical_Device column not found. "
+          "Skipping step 3.")
 
 ##### 4. Device type distribution
+dtype_by_device = None
 if 'Device_Type' in df.columns:
     print("\nDevice Type Distribution:")
     dtype_counts = df['Device_Type'].value_counts()
@@ -65,15 +75,21 @@ if 'Device_Type' in df.columns:
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     plt.show()
-    # Device type by rhetorical device
     if 'Rhetorical_Device' in df.columns:
         dtype_by_device = pd.crosstab(
             df['Device_Type'],
             df['Rhetorical_Device'])
         print("\nDevice Type by Rhetorical Device:")
         print(dtype_by_device)
+    else:
+        print("Warning: Rhetorical_Device column not "
+              "found. Skipping device type crosstab.")
+else:
+    print("Warning: Device_Type column not found. "
+          "Skipping step 4.")
 
 ##### 5. Audience positioning distribution
+ap_by_scheme = None
 if 'Audience_Positioning' in df.columns:
     print("\nAudience Positioning Distribution:")
     ap_counts = df['Audience_Positioning'].value_counts()
@@ -86,7 +102,6 @@ if 'Audience_Positioning' in df.columns:
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     plt.show()
-    # Audience positioning by argumentation scheme
     if 'Argumentation_Scheme' in df.columns:
         ap_by_scheme = pd.crosstab(
             df['Argumentation_Scheme'],
@@ -94,8 +109,16 @@ if 'Audience_Positioning' in df.columns:
         print("\nAudience Positioning by "
               "Argumentation Scheme:")
         print(ap_by_scheme)
+    else:
+        print("Warning: Argumentation_Scheme column not "
+              "found. Skipping audience positioning "
+              "crosstab.")
+else:
+    print("Warning: Audience_Positioning column not found. "
+          "Skipping step 5.")
 
 ##### 6. Evaluative framing distribution
+framing_by_device = None
 if 'Evaluative_Framing' in df.columns:
     print("\nEvaluative Framing Distribution:")
     framing_counts = (df['Evaluative_Framing']
@@ -106,35 +129,45 @@ if 'Evaluative_Framing' in df.columns:
     plt.ylabel("")
     plt.tight_layout()
     plt.show()
-    # Evaluative framing by rhetorical device
     if 'Rhetorical_Device' in df.columns:
         framing_by_device = pd.crosstab(
             df['Rhetorical_Device'],
             df['Evaluative_Framing'])
         print("\nEvaluative Framing by Rhetorical Device:")
         print(framing_by_device)
+    else:
+        print("Warning: Rhetorical_Device column not "
+              "found. Skipping evaluative framing "
+              "crosstab.")
+else:
+    print("Warning: Evaluative_Framing column not found. "
+          "Skipping step 6.")
 
 ##### 7. Chi-square test: argumentation scheme vs.
 # critical questions status
-if ('Argumentation_Scheme' in df.columns
-        and 'Critical_Questions_Status' in df.columns):
+if cq_by_scheme is not None:
     chi2, p_val, dof, expected = stats.chi2_contingency(
         cq_by_scheme)
     print(f"\nChi-Square Test: Argumentation Scheme vs. "
           f"Critical Questions Status:")
     print(f"  chi2 = {chi2:.3f}, df = {dof}, "
           f"p = {p_val:.3f}")
+else:
+    print("Warning: Chi-square test (step 7) skipped — "
+          "crosstab from step 2 was not computed.")
 
 ##### 8. Chi-square test: rhetorical device vs.
 # evaluative framing
-if ('Rhetorical_Device' in df.columns
-        and 'Evaluative_Framing' in df.columns):
+if framing_by_device is not None:
     chi2, p_val, dof, expected = stats.chi2_contingency(
         framing_by_device)
     print(f"\nChi-Square Test: Rhetorical Device vs. "
           f"Evaluative Framing:")
     print(f"  chi2 = {chi2:.3f}, df = {dof}, "
           f"p = {p_val:.3f}")
+else:
+    print("Warning: Chi-square test (step 8) skipped — "
+          "crosstab from step 6 was not computed.")
 
 ##### 9. Co-occurrence analysis of coding categories
 code_columns = [col for col in df.columns
@@ -145,5 +178,8 @@ if len(code_columns) >= 2:
         co_occur = (
             (df[col_a] == 1) & (df[col_b] == 1)).sum()
         print(f"  {col_a} + {col_b}: {co_occur}")
+else:
+    print("Warning: Fewer than 2 Code_ columns found. "
+          "Skipping co-occurrence analysis.")
 
 print("Rhetorical strategy analysis completed.")
