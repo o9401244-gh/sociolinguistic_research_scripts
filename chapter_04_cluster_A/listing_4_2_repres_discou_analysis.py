@@ -35,6 +35,7 @@ plt.tight_layout()
 plt.show()
 
 ##### 3. Cross-tabulation: strategy by social actor
+crosstab_no_margins = None
 if ('Representational_Strategy' in df.columns
         and 'Social_Actor' in df.columns):
     crosstab = pd.crosstab(
@@ -44,7 +45,6 @@ if ('Representational_Strategy' in df.columns
     print("\nCross-tabulation: Social Actor by "
           "Representational Strategy:")
     print(crosstab)
-    # Heatmap of cross-tabulation (excluding margins)
     crosstab_no_margins = pd.crosstab(
         df['Social_Actor'],
         df['Representational_Strategy'])
@@ -61,15 +61,24 @@ if ('Representational_Strategy' in df.columns
               "Representational Strategy")
     plt.tight_layout()
     plt.show()
+else:
+    print("Warning: Representational_Strategy or "
+          "Social_Actor column not found. "
+          "Skipping step 3.")
 
 ##### 4. Chi-square test of independence
+if crosstab_no_margins is not None:
     chi2, p_val, dof, expected = stats.chi2_contingency(
         crosstab_no_margins)
     print(f"\nChi-Square Test of Independence:")
     print(f"  chi2 = {chi2:.3f}, df = {dof}, "
           f"p = {p_val:.3f}")
+else:
+    print("Warning: Chi-square test (step 4) skipped — "
+          "crosstab from step 3 was not computed.")
 
 ##### 5. Agency distribution: agentive vs. passive roles
+agency_by_actor = None
 if 'Agency' in df.columns:
     print("\nAgency Distribution:")
     agency_counts = df['Agency'].value_counts()
@@ -79,17 +88,23 @@ if 'Agency' in df.columns:
     plt.ylabel("")
     plt.tight_layout()
     plt.show()
-    # Agency by social actor
     if 'Social_Actor' in df.columns:
         agency_by_actor = pd.crosstab(
             df['Social_Actor'], df['Agency'])
         print("\nAgency by Social Actor:")
         print(agency_by_actor)
+    else:
+        print("Warning: Social_Actor column not found. "
+              "Skipping agency by actor crosstab.")
+else:
+    print("Warning: Agency column not found. "
+          "Skipping step 5.")
 
 ##### 6. Framing pattern analysis
 if 'Framing_Category' in df.columns:
     print("\nFraming Category Distribution:")
-    framing_counts = df['Framing_Category'].value_counts()
+    framing_counts = (df['Framing_Category']
+                      .value_counts())
     print(framing_counts)
     framing_counts.plot(kind='bar')
     plt.title("Distribution of Framing Categories")
@@ -98,6 +113,9 @@ if 'Framing_Category' in df.columns:
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     plt.show()
+else:
+    print("Warning: Framing_Category column not found. "
+          "Skipping step 6.")
 
 ##### 7. Co-occurrence analysis of coding categories
 code_columns = [col for col in df.columns
@@ -108,5 +126,8 @@ if len(code_columns) >= 2:
         co_occur = (
             (df[col_a] == 1) & (df[col_b] == 1)).sum()
         print(f"  {col_a} + {col_b}: {co_occur}")
+else:
+    print("Warning: Fewer than 2 Code_ columns found. "
+          "Skipping co-occurrence analysis.")
 
 print("Representational discourse analysis completed.")
