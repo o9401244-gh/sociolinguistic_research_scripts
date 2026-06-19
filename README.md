@@ -109,9 +109,9 @@ The table below shows current availability.
 | 5.2 | Assessing Public Attitudes - Analysis | Available |
 | 5.3 | Documenting Language Attitudes - Processing | Available |
 | 5.4 | Documenting Language Attitudes - Analysis | Available |
-| 6.1 | Interactional Analysis - Processing | Pending |
-| 6.2 | Interactional Analysis - Analysis | Pending |
-| 6.3 | Sociolinguistic Interviews - Processing | Pending |
+| 6.1 | Interactional Analysis - Processing | Available |
+| 6.2 | Interactional Analysis - Analysis | Available |
+| 6.3 | Sociolinguistic Interviews - Processing | Available |
 | 7.1 | Geolinguistic Mapping - Processing | Pending |
 | 7.2 | Geolinguistic Mapping - Analysis | Pending |
 | 7.3 | Social Network Analysis - Processing | Pending |
