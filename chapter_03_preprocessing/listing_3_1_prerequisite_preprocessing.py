@@ -17,6 +17,29 @@ import re
 # Python environment, and any operating system.
 # =============================================================
 
+# =============================================================
+# BEFORE YOU BEGIN
+# =============================================================
+# 1. Run this script from the folder that contains your raw
+#    data file. Output files are saved to the same folder.
+#
+# 2. For methods requiring additional input files (Social
+#    Network Analysis, Language Practice Network Mapping,
+#    Evaluating Language Interventions), prepare those files
+#    in the same folder before running the cluster-level
+#    Processing Script. The menu will remind you of the
+#    required filenames and columns.
+#
+# 3. If your method is in Cluster G, the preprocessing block
+#    already computes Outcome_Binary from your Variant column.
+#    You do not need to create this column manually.
+#
+# 4. Required packages beyond pandas and numpy:
+#    pip install matplotlib scipy statsmodels scikit-learn
+#    Not all packages are needed for every method; install
+#    as prompted by ImportError when running cluster scripts.
+# =============================================================
+
 
 # -------------------------------------------------------------
 # SECTION 1 — METHOD REGISTRY
@@ -112,6 +135,8 @@ METHODS = {
             'extra_note':  [
                 'sna_edges_raw.csv  — raw edge list file with columns '
                 'Node_A, Node_B, Tie_Type, and optionally Tie_Strength. '
+                'Node_A and Node_B values must match the Node_ID values '
+                'in your main data file exactly (case-sensitive). '
                 'This file is NOT produced by this script; you must '
                 'prepare it separately before running the Data Processing '
                 'Script (Listing 7.3).'
@@ -154,9 +179,11 @@ METHODS = {
             'extra_note':  [
                 'intervention_outcomes_raw.csv  — longitudinal outcomes '
                 'file with columns Participant_ID, Time (e.g., Pre/Post), '
-                'and one or more outcome score columns. This file is NOT '
-                'produced by this script; you must prepare it separately '
-                'before running the Data Processing Script (Listing 9.1).'
+                'and one or more outcome score columns. Participant_ID '
+                'values must match those in your main data file exactly. '
+                'This file is NOT produced by this script; you must '
+                'prepare it separately before running the Data Processing '
+                'Script (Listing 9.1).'
             ],
         },
     ],
@@ -240,9 +267,12 @@ METHODS = {
             'extra':       ['network_edges_raw.csv'],
             'extra_note':  [
                 'network_edges_raw.csv  — raw edge list file with columns '
-                'Speaker_A, Speaker_B, and Tie_Type. This file is NOT '
-                'produced by this script; you must prepare it separately '
-                'before running the Data Processing Script (Listing 10.17).'
+                'Speaker_A, Speaker_B, and Tie_Type. Speaker_A and '
+                'Speaker_B values must match the Speaker_ID values in '
+                'your main data file exactly (case-sensitive). '
+                'This file is NOT produced by this script; you must '
+                'prepare it separately before running the Data Processing '
+                'Script (Listing 10.17).'
             ],
         },
     ],
@@ -326,7 +356,6 @@ def run_menu():
         print("  input file(s) that are NOT produced by this script:")
         for note in method['extra_note']:
             print()
-            # Word-wrap note at 58 chars
             words = note.split()
             line = "    "
             for word in words:
