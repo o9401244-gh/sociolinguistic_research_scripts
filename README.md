@@ -9,7 +9,7 @@ Intelligence*. Scripts are organised by chapter and listing number,
 mirroring the book's structure.
 
 A citable archived version of this repository is available at:
-**https://doi.org/10.5281/zenodo.20774697**
+**https://doi.org/10.5281/zenodo.PENDING**
 
 ---
 
@@ -116,7 +116,7 @@ package that raises an ImportError.
 | 5.4 | Documenting Language Attitudes - Analysis | Available |
 | 6.1 | Interactional Analysis - Processing | Available |
 | 6.2 | Interactional Analysis - Analysis | Available |
-| 6.3 | Sociolinguistic Interviews - Processing | Available |
+| 6.3 | Sociolinguistic Interviews - Processing (no separate analysis script; use Listing 6.2) | Available |
 | 7.1 | Geolinguistic Mapping - Processing | Available |
 | 7.2 | Geolinguistic Mapping - Analysis | Available |
 | 7.3 | Social Network Analysis - Processing | Available |
