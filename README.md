@@ -9,7 +9,7 @@ Intelligence*. Scripts are organised by chapter and listing number,
 mirroring the book's structure.
 
 A citable archived version of this repository is available at:
-**https://doi.org/10.5281/zenodo.PENDING**
+**https://doi.org/10.5281/zenodo.20774697**
 
 ---
 
